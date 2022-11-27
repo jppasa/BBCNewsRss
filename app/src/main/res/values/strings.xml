@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name" translatable="false">BBC News Rss</string>
+    <string name="item_image">%1$s image</string>
+    <string name="empty_title">Source with no title</string>
+</resources>
