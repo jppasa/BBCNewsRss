@@ -4,4 +4,7 @@
     <string name="empty_title">Fuente sin título</string>
     <string name="network_error">Lo sentimos, ocurrió un error en la red.</string>
     <string name="unknown_error">Error desconocido</string>
+    <string name="feed_title">Fuente</string>
+    <string name="go_back">Regresar</string>
+    <string name="no_title">Sin título</string>
 </resources>

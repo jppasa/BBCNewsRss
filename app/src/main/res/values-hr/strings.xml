@@ -4,4 +4,7 @@
     <string name="empty_title">Izvor bez naslova</string>
     <string name="network_error">Žao nam je, došlo je do greške na mreži.</string>
     <string name="unknown_error">Nepoznata pogreška</string>
+    <string name="feed_title">Izvor</string>
+    <string name="go_back">Idi natrag</string>
+    <string name="no_title">Bez naslova</string>
 </resources>

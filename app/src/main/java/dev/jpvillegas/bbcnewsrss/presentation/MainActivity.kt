@@ -32,12 +32,12 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.RssFeedListScreen.route
                         ) {
-                            RssFeedListScreen(onFeedClick = {
-                                //navController.navigate()
+                            RssFeedListScreen(onFeedClick = { feed ->
+                                navController.navigate(Screen.RssFeedScreen.route + "/${feed.url}") // URL is id rn
                             })
                         }
                         composable(
-                            route = Screen.RssFeedScreen.route + "/{coinId}"
+                            route = Screen.RssFeedScreen.route + "/{${Screen.feedIdRouteParam}}"
                         ) {
                             //CoinDetailScreen()
                         }
