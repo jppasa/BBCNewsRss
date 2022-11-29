@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import dev.jpvillegas.bbcnewsrss.R
 import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
 import dev.jpvillegas.bbcnewsrss.presentation.ui.theme.BBCNewsRssTheme
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun RssFeedListItem(
     feed: RssFeed,
@@ -35,9 +37,9 @@ fun RssFeedListItem(
     val imageUrl = feed.thumbnailUrl
 
     Card(
+        onClick = { onClick?.invoke(feed)},
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick?.invoke(feed) }
             .padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
         Row(

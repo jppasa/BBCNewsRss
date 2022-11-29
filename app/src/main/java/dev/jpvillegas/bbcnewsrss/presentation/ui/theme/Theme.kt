@@ -5,17 +5,16 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
-    primary = Purple200,
-    primaryVariant = Purple700,
+    primary = BBCRedLight,
+    primaryVariant = BBCRedDark,
     secondary = Teal200
 )
 
 private val LightColorPalette = lightColors(
-    primary = Purple500,
-    primaryVariant = Purple700,
+    primary = BBCRed,
+    primaryVariant = BBCRedDark,
     secondary = Teal200,
     background = VeryLightGray
 
@@ -38,7 +37,7 @@ fun BBCNewsRssTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Compos
     }
 
     MaterialTheme(
-        colors = colors,
+        colors = LightColorPalette,
         typography = Typography,
         shapes = Shapes,
         content = content

@@ -2,4 +2,6 @@
 <resources>
     <string name="item_image">%1$s silka</string>
     <string name="empty_title">Izvor bez naslova</string>
+    <string name="network_error">Žao nam je, došlo je do greške na mreži.</string>
+    <string name="unknown_error">Nepoznata pogreška</string>
 </resources>

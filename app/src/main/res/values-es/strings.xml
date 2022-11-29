@@ -2,4 +2,6 @@
 <resources>
     <string name="item_image">Imagen de %1$s</string>
     <string name="empty_title">Fuente sin título</string>
+    <string name="network_error">Lo sentimos, ocurrió un error en la red.</string>
+    <string name="unknown_error">Error desconocido</string>
 </resources>
