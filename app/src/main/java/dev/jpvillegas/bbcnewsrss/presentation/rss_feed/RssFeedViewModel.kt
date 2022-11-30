@@ -28,8 +28,8 @@ class RssFeedViewModel @Inject constructor(
     val state: State<RssFeedState> = _state
 
     init {
-        savedStateHandle.get<Int>(Screen.PARAM_FEED_ID)?.let {
-            getFeedById(it)
+        savedStateHandle.get<String>(Screen.PARAM_FEED_ID)?.let {
+            getFeedById(it.toInt())
         }
     }
 
