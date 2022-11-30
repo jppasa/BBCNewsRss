@@ -1,4 +1,4 @@
-package dev.jpvillegas.bbcnewsrss.presentation.rss_feed_item
+package dev.jpvillegas.bbcnewsrss.presentation.rss_feed
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

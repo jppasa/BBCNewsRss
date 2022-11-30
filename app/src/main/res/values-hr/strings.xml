@@ -7,4 +7,5 @@
     <string name="feed_title">Izvor</string>
     <string name="go_back">Idi natrag</string>
     <string name="no_title">Bez naslova</string>
+    <string name="source_not_found">Izvor nije pronađen</string>
 </resources>

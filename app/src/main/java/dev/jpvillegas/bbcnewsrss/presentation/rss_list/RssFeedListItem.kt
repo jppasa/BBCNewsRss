@@ -103,6 +103,7 @@ fun RssFeedListItemPreview() {
     BBCNewsRssTheme {
         RssFeedListItem(
             feed = RssFeed(
+                id = 0,
                 title = "BBC News World Wide",
                 description = "An Rss feed like no other",
                 link = null,

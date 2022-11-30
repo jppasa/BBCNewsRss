@@ -7,4 +7,5 @@
     <string name="feed_title">Fuente</string>
     <string name="go_back">Regresar</string>
     <string name="no_title">Sin título</string>
+    <string name="source_not_found">No se encontró la fuente</string>
 </resources>

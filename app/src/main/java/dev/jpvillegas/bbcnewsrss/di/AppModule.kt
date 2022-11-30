@@ -1,10 +1,13 @@
 package dev.jpvillegas.bbcnewsrss.di
 
+import androidx.room.Room
 import com.prof.rssparser.Parser
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.jpvillegas.bbcnewsrss.data.db.AppDb
+import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
 import dev.jpvillegas.bbcnewsrss.data.repository.RssFeedRepositoryImpl
 import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
 import okhttp3.OkHttpClient
@@ -30,11 +33,13 @@ object AppModule {
     @Singleton
     fun providesRssFeedRepository(
         okHttpClient: OkHttpClient,
-        rssParser: Parser
+        rssParser: Parser,
+        feedDao: FeedDao,
     ): RssFeedRepository {
         return RssFeedRepositoryImpl(
             client = okHttpClient,
-            parser = rssParser
+            parser = rssParser,
+            feedDao = feedDao
         )
     }
 }

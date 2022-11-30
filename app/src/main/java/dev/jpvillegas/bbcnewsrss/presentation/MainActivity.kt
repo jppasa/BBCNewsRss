@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import dev.jpvillegas.bbcnewsrss.presentation.rss_feed.RssFeedScreen
 import dev.jpvillegas.bbcnewsrss.presentation.rss_list.RssFeedListScreen
 import dev.jpvillegas.bbcnewsrss.presentation.ui.theme.BBCNewsRssTheme
 
@@ -33,13 +34,13 @@ class MainActivity : ComponentActivity() {
                             route = Screen.RssFeedListScreen.route
                         ) {
                             RssFeedListScreen(onFeedClick = { feed ->
-                                navController.navigate(Screen.RssFeedScreen.route + "/${feed.url}") // URL is id rn
+                                navController.navigate(Screen.RssFeedScreen.route + "/${feed.id}") // URL is id rn
                             })
                         }
                         composable(
-                            route = Screen.RssFeedScreen.route + "/{${Screen.feedIdRouteParam}}"
+                            route = Screen.RssFeedScreen.route + "/{${Screen.PARAM_FEED_ID}}"
                         ) {
-                            //CoinDetailScreen()
+                            RssFeedScreen()
                         }
                     }
                 }

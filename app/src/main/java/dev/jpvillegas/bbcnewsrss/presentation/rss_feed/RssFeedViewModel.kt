@@ -1,13 +1,15 @@
-package dev.jpvillegas.bbcnewsrss.presentation.rss_list
+package dev.jpvillegas.bbcnewsrss.presentation.rss_feed
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
 import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
+import dev.jpvillegas.bbcnewsrss.presentation.Screen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -17,23 +19,26 @@ import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
-class RssFeedListViewModel @Inject constructor(
-    private val repository: RssFeedRepository
+class RssFeedViewModel @Inject constructor(
+    private val repository: RssFeedRepository,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(RssFeedListState())
-    val state: State<RssFeedListState> = _state
+    private val _state = mutableStateOf(RssFeedState())
+    val state: State<RssFeedState> = _state
 
     init {
-        fetchRssFeeds() // TODO launch this from screen
+        savedStateHandle.get<Int>(Screen.PARAM_FEED_ID)?.let {
+            getFeedById(it)
+        }
     }
 
-    fun fetchRssFeeds() {
+    private fun getFeedById(id: Int) {
         flow {
             try {
                 emit(FetchState.Loading())
-                val feeds = repository.getRssFeeds()
-                emit(FetchState.Success(feeds))
+                val feed = repository.getRssFeedById(id)
+                emit(FetchState.Success(feed))
             } catch (e: IOException) {
                 emit(FetchState.Error(error = RepositoryError.Network))
             } catch (e: Exception) {
@@ -43,14 +48,14 @@ class RssFeedListViewModel @Inject constructor(
             when (it) {
                 is FetchState.Loading -> {
                     // TODO copy current state for loading and keeping list
-                    _state.value = RssFeedListState(isLoading = true)
+                    _state.value = RssFeedState(isLoading = true)
                 }
                 is FetchState.Error -> {
-                    _state.value = RssFeedListState(error = it.error)
+                    _state.value = RssFeedState(error = it.error)
                 }
                 is FetchState.Success -> {
-                    _state.value = RssFeedListState(
-                        feeds = it.feeds ?: emptyList(),
+                    _state.value = RssFeedState(
+                        feed = it.feed,
                         error = RepositoryError.None
                     )
                 }
@@ -59,11 +64,11 @@ class RssFeedListViewModel @Inject constructor(
     }
 
     sealed class FetchState(
-        val feeds: List<RssFeed>? = null,
+        val feed: RssFeed? = null,
         val error: RepositoryError = RepositoryError.None
     ) {
         class Loading : FetchState()
-        class Success(feeds: List<RssFeed>) : FetchState(feeds)
+        class Success(feed: RssFeed?) : FetchState(feed)
         class Error(error: RepositoryError) : FetchState(error = error)
     }
 }

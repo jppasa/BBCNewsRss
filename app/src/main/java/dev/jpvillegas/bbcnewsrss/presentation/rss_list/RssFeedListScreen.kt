@@ -132,6 +132,7 @@ fun RssFeedListScreenPreview() {
             RssFeedListContent(
                 feeds = (1..10).map {
                     RssFeed(
+                        id = it,
                         title = "BBC News $it",
                         description = "A feed description",
                         link = null,

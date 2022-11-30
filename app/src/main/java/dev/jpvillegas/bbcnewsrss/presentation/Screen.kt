@@ -5,6 +5,6 @@ sealed class Screen(val route: String) {
     object RssFeedScreen : Screen("rss_feed_screen")
 
     companion object {
-        const val feedIdRouteParam = "feedId"
+        const val PARAM_FEED_ID = "feedId"
     }
 }
