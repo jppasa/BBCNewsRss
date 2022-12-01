@@ -1,5 +1,6 @@
 package dev.jpvillegas.bbcnewsrss.presentation.rss_feed
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,18 +16,34 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.jpvillegas.bbcnewsrss.R
 import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
+import dev.jpvillegas.bbcnewsrss.domain.model.RssFeedItem
+import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
 import dev.jpvillegas.bbcnewsrss.presentation.ui.theme.BBCNewsRssTheme
 
 @Composable
 fun RssFeedScreen(
+    onBackClicked: () -> Unit,
+    onFeedItemClicked: (RssFeedItem) -> Unit,
     viewModel: RssFeedViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
-    RssFeedContent(feed = state.feed)
+    RssFeedContent(
+        feed = state.feed,
+        isLoading = state.isLoading,
+        error = state.error,
+        onBackClicked = onBackClicked,
+        onRssFeedItemClicked = onFeedItemClicked,
+    )
 }
 
 @Composable
-fun RssFeedContent(feed: RssFeed?) {
+fun RssFeedContent(
+    feed: RssFeed?,
+    isLoading: Boolean,
+    error: RepositoryError,
+    onBackClicked: () -> Unit,
+    onRssFeedItemClicked: (RssFeedItem) -> Unit
+) {
     Scaffold(
         topBar = {
             TopAppBar(
@@ -39,9 +56,7 @@ fun RssFeedContent(feed: RssFeed?) {
                         .fillMaxWidth()
                 ) {
                     IconButton(
-                        onClick = {
-                            // go back
-                        }
+                        onClick = onBackClicked
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
@@ -61,30 +76,67 @@ fun RssFeedContent(feed: RssFeed?) {
             }
         }
     ) { padding ->
-        if (feed == null) {
-            Box(
-                modifier = Modifier.fillMaxSize()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+        ) {
+            AnimatedVisibility(
+                visible = isLoading,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 32.dp)
             ) {
+                CircularProgressIndicator()
+            }
+
+            AnimatedVisibility(
+                visible = error != RepositoryError.None,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 32.dp)
+            ) {
+                val errorStr = when (error) {
+                    RepositoryError.Network -> stringResource(id = R.string.network_error)
+                    RepositoryError.Unknown -> stringResource(id = R.string.unknown_error)
+                    RepositoryError.None -> ""
+                }
+
                 Text(
-                    text = stringResource(id = R.string.source_not_found),
-                    modifier = Modifier.align(Alignment.Center)
+                    text = errorStr,
+                    style = MaterialTheme.typography.body2
                 )
             }
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-            ) {
-                item { Spacer(modifier = Modifier.height(8.dp)) }
-                items(feed.items) {
-                    RssFeedItem(
-                        feedItem = it
+
+            if (feed == null) {
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.source_not_found),
+                        modifier = Modifier.align(Alignment.Center)
                     )
                 }
-                item { Spacer(modifier = Modifier.height(8.dp)) }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                ) {
+                    item { Spacer(modifier = Modifier.height(8.dp)) }
+                    items(feed.items) {
+                        RssFeedItem(
+                            feedItem = it,
+                            onClick = {
+                                onRssFeedItemClicked(it)
+                            }
+                        )
+                    }
+                    item { Spacer(modifier = Modifier.height(8.dp)) }
+                }
             }
         }
+
     }
 }
 
@@ -114,6 +166,10 @@ fun RssFeedScreenPreview() {
                         )
                     }
                 ),
+                isLoading = false,
+                error = RepositoryError.None,
+                onBackClicked = {},
+                onRssFeedItemClicked = {}
             )
         }
     }

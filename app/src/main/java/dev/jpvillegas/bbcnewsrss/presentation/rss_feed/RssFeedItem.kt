@@ -24,10 +24,11 @@ import dev.jpvillegas.bbcnewsrss.presentation.ui.theme.BBCNewsRssTheme
 
 @Composable
 fun RssFeedItem(
-    feedItem: RssFeedItem
+    feedItem: RssFeedItem,
+    onClick: () -> Unit
 ) {
     Box(
-        modifier = Modifier.clickable {  }
+        modifier = Modifier.clickable(onClick = onClick)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -36,13 +37,17 @@ fun RssFeedItem(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         ) {
-            Column {
+            Column(
+                modifier = Modifier
+                    .weight(weight = 1.0f)
+                    .padding(end = 16.dp)
+            ) {
                 Text(
                     text = feedItem.title ?: stringResource(id = R.string.no_title),
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium
-                    )
+                    ),
                 )
                 if (feedItem.description != null) {
                     Text(
@@ -79,12 +84,13 @@ fun RssFeedItemPreview() {
         Box(modifier = Modifier.background(MaterialTheme.colors.background)) {
             RssFeedItem(
                 feedItem = RssFeedItem(
-                    title = "A News story breaking right now",
+                    title = "A News story breaking right now one two three four five",
                     description = "This is the description of a story breaking",
                     link = null,
                     guid = null,
                     publicationDate = "2022-11-28 14:00:00-00"
-                )
+                ),
+                onClick = {}
             )
         }
     }
