@@ -1,17 +1,12 @@
 package dev.jpvillegas.bbcnewsrss.presentation
 
-import android.content.Context
 import android.os.Bundle
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -22,8 +17,6 @@ import dev.jpvillegas.bbcnewsrss.presentation.rss_feed.RssFeedScreen
 import dev.jpvillegas.bbcnewsrss.presentation.rss_list.RssFeedListScreen
 import dev.jpvillegas.bbcnewsrss.presentation.ui.theme.BBCNewsRssTheme
 import dev.jpvillegas.bbcnewsrss.presentation.web_view_screen.WebViewScreen
-import java.net.URLDecoder
-import java.net.URLEncoder
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -37,7 +30,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     // Improvement: Use Google's Accompanist lib to add screen transitions
                     // https://google.github.io/accompanist/navigation-animation/
-                    
+
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,

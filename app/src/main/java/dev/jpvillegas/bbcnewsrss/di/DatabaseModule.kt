@@ -13,8 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class DatabaseModule {
-
+object DatabaseModule {
     @Provides
     fun provideFeedDao(db: AppDb): FeedDao {
         return db.feedDao()
