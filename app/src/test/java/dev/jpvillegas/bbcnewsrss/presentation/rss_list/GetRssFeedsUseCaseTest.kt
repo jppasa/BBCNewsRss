@@ -19,10 +19,11 @@ import java.io.IOException
 internal class GetRssFeedsUseCaseTest {
 
     private lateinit var getRssFeedsUseCase: GetRssFeedsUseCase
-    private val repository: RssFeedRepository = mock(RssFeedRepository::class.java)
+    private lateinit var repository: RssFeedRepository
 
     @Before
     fun setUp() {
+        repository = mock(RssFeedRepository::class.java)
         getRssFeedsUseCase = GetRssFeedsUseCase(repository)
     }
 
