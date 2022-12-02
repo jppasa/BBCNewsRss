@@ -8,5 +8,6 @@ interface RssFeedRepository {
     @Throws(IOException::class, Exception::class)
     suspend fun getRssFeeds() : List<RssFeed>
 
+    @Throws(IOException::class, Exception::class)
     suspend fun getRssFeedById(id: Int) : RssFeed?
 }
