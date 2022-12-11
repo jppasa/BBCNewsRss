@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import javax.inject.Inject
 
-class GetRssFeedUseCase @Inject constructor(
+class GetSingleRssFeedUseCase @Inject constructor(
     private val repository: RssFeedRepository
 ) {
     fun getFeedById(id: Int): Flow<FetchState<RssFeed?>> {

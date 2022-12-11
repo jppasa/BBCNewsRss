@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.jpvillegas.bbcnewsrss.domain.repository.FetchState
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
-import dev.jpvillegas.bbcnewsrss.domain.use_case.GetRssFeedUseCase
+import dev.jpvillegas.bbcnewsrss.domain.use_case.GetSingleRssFeedUseCase
 import dev.jpvillegas.bbcnewsrss.presentation.Screen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RssFeedViewModel @Inject constructor(
-    private val getRssFeedUseCase: GetRssFeedUseCase,
+    private val getSingleRssFeedUseCase: GetSingleRssFeedUseCase,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -32,7 +32,7 @@ class RssFeedViewModel @Inject constructor(
     }
 
     private fun getFeedById(id: Int) {
-        getRssFeedUseCase
+        getSingleRssFeedUseCase
             .getFeedById(id)
             .flowOn(Dispatchers.IO)
             .onEach {
