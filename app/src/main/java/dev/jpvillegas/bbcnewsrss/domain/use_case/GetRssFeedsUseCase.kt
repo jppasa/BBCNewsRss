@@ -1,4 +1,4 @@
-package dev.jpvillegas.bbcnewsrss.presentation.rss_list
+package dev.jpvillegas.bbcnewsrss.domain.use_case
 
 import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
 import dev.jpvillegas.bbcnewsrss.domain.repository.FeedSourceRepository

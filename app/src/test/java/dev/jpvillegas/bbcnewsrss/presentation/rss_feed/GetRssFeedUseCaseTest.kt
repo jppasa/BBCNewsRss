@@ -3,6 +3,7 @@ package dev.jpvillegas.bbcnewsrss.presentation.rss_feed
 import dev.jpvillegas.bbcnewsrss.domain.repository.FetchState
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
 import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
+import dev.jpvillegas.bbcnewsrss.domain.use_case.GetRssFeedUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.toList
