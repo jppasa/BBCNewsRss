@@ -4,7 +4,6 @@ import com.prof.rssparser.*
 import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
 import dev.jpvillegas.bbcnewsrss.data.mappers.toFeedEntity
 import dev.jpvillegas.bbcnewsrss.data.mappers.toRssFeed
-import dev.jpvillegas.bbcnewsrss.domain.repository.FeedSourceRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.OkHttpClient
@@ -19,7 +18,7 @@ import org.mockito.Mockito.*
 @OptIn(ExperimentalCoroutinesApi::class)
 class RssFeedRepositoryImplTest {
     private lateinit var mockServer: MockWebServer
-    private lateinit var feedSourceRepository: FeedSourceRepository
+    private lateinit var sourceUrls: List<String>
     private lateinit var parser: Parser
     private lateinit var feedDao: FeedDao
 
@@ -30,20 +29,13 @@ class RssFeedRepositoryImplTest {
         mockServer = MockWebServer()
         mockServer.start()
 
-        val baseUrl = mockServer.url("").toUrl().toString()
-
-        feedSourceRepository = object : FeedSourceRepository {
-            override fun sourceUrls(): List<String> {
-                return listOf(baseUrl)
-            }
-        }
+        sourceUrls = listOf(mockServer.url("").toUrl().toString())
 
         parser = Parser.Builder().build()
 
         feedDao = mock(FeedDao::class.java)
 
         rssFeedRepositoryImpl = RssFeedRepositoryImpl(
-            feedSourceRepository = feedSourceRepository,
             client = OkHttpClient(),
             parser = parser,
             feedDao = feedDao
@@ -68,9 +60,9 @@ class RssFeedRepositoryImplTest {
                 .setBody(RssFeedRepositoryData.ResponseChannel)
         )
 
-        val result = rssFeedRepositoryImpl.getRssFeeds()
+        val result = rssFeedRepositoryImpl.getRssFeeds(sourceUrls)
 
-        assertEquals(result.size, feedSourceRepository.sourceUrls().size)
+        assertEquals(result.size, sourceUrls.size)
         verify(feedDao, times(1)).insertOrUpdate(anyList())
         verify(feedDao, times(1)).getAll()
     }
@@ -88,10 +80,10 @@ class RssFeedRepositoryImplTest {
                 .setBody("")
         )
 
-        val result = rssFeedRepositoryImpl.getRssFeeds()
+        val result = rssFeedRepositoryImpl.getRssFeeds(sourceUrls)
 
         // db fetch still should return all data
-        assertEquals(result.size, feedSourceRepository.sourceUrls().size)
+        assertEquals(result.size, sourceUrls.size)
         verify(feedDao, times(1)).insertOrUpdate(anyList())
         verify(feedDao, times(1)).getAll()
     }

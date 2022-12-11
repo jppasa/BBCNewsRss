@@ -13,6 +13,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.ArgumentMatchers.anyList
 import org.mockito.Mockito
 import java.io.IOException
 
@@ -40,7 +41,7 @@ internal class GetRssFeedUseCaseTest {
 
     @Test
     fun `Get Rss feeds as successful`() = runTest {
-        Mockito.`when`(repository.getRssFeeds()).thenReturn(emptyList())
+        Mockito.`when`(repository.getRssFeeds(anyList())).thenReturn(emptyList())
         val feedsFlow = getRssFeedUseCase.getFeedById(anyInt())
         val successState = feedsFlow.toList()[1]
         MatcherAssert.assertThat(

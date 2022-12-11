@@ -5,7 +5,6 @@ import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
 import dev.jpvillegas.bbcnewsrss.data.mappers.toFeedEntity
 import dev.jpvillegas.bbcnewsrss.data.mappers.toRssFeed
 import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
-import dev.jpvillegas.bbcnewsrss.domain.repository.FeedSourceRepository
 import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,15 +13,13 @@ import okhttp3.Request
 import javax.inject.Inject
 
 class RssFeedRepositoryImpl @Inject constructor(
-    private val feedSourceRepository: FeedSourceRepository,
     private val client: OkHttpClient,
     private val parser: Parser,
     private val feedDao: FeedDao,
 ) : RssFeedRepository {
 
-    override suspend fun getRssFeeds(): List<RssFeed> {
-        val feedEntities = feedSourceRepository
-            .sourceUrls()
+    override suspend fun getRssFeeds(urlList: List<String>): List<RssFeed> {
+        val feedEntities = urlList
             .mapNotNull { url ->
                 // Future: Check built-in cache in parser -> parser.getChannel(feedUrl)
                 fetchFeedUrl(url)?.let {

@@ -40,13 +40,11 @@ object AppModule {
     @Provides
     @Singleton
     fun providesRssFeedRepository(
-        feedSourceRepository: FeedSourceRepository,
         okHttpClient: OkHttpClient,
         rssParser: Parser,
         feedDao: FeedDao,
     ): RssFeedRepository {
         return RssFeedRepositoryImpl(
-            feedSourceRepository = feedSourceRepository,
             client = okHttpClient,
             parser = rssParser,
             feedDao = feedDao

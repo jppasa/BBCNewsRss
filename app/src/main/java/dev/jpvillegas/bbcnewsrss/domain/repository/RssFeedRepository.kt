@@ -6,7 +6,7 @@ import java.io.IOException
 interface RssFeedRepository {
 
     @Throws(IOException::class, Exception::class)
-    suspend fun getRssFeeds() : List<RssFeed>
+    suspend fun getRssFeeds(urlList: List<String>) : List<RssFeed>
 
     @Throws(IOException::class, Exception::class)
     suspend fun getRssFeedById(id: Int) : RssFeed?

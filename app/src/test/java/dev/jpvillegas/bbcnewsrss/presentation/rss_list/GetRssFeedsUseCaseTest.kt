@@ -1,5 +1,6 @@
 package dev.jpvillegas.bbcnewsrss.presentation.rss_list
 
+import dev.jpvillegas.bbcnewsrss.domain.repository.FeedSourceRepository
 import dev.jpvillegas.bbcnewsrss.domain.repository.FetchState
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
 import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
@@ -24,7 +25,14 @@ internal class GetRssFeedsUseCaseTest {
     @Before
     fun setUp() {
         repository = mock(RssFeedRepository::class.java)
-        getRssFeedsUseCase = GetRssFeedsUseCase(repository)
+
+        val feedSourceRepository = object : FeedSourceRepository {
+            override fun sourceUrls(): List<String> {
+                return listOf("")
+            }
+        }
+
+        getRssFeedsUseCase = GetRssFeedsUseCase(repository, feedSourceRepository)
     }
 
     @Test
@@ -36,7 +44,7 @@ internal class GetRssFeedsUseCaseTest {
 
     @Test
     fun `Get Rss feeds as successful`() = runTest {
-        `when`(repository.getRssFeeds()).thenReturn(emptyList())
+        `when`(repository.getRssFeeds(anyList())).thenReturn(emptyList())
         val feedsFlow = getRssFeedsUseCase.getFeeds()
         val successState = feedsFlow.toList()[1]
         MatcherAssert.assertThat(successState, instanceOf(FetchState.Success::class.java))
@@ -44,7 +52,7 @@ internal class GetRssFeedsUseCaseTest {
 
     @Test
     fun `Get Rss feeds with network error`() = runTest {
-        `when`(repository.getRssFeeds()).thenThrow(IOException())
+        `when`(repository.getRssFeeds(anyList())).thenThrow(IOException())
         val feedsFlow = getRssFeedsUseCase.getFeeds()
         val networkError = feedsFlow.toList()[1]
         MatcherAssert.assertThat(networkError, instanceOf(FetchState.Error::class.java))
@@ -53,7 +61,7 @@ internal class GetRssFeedsUseCaseTest {
 
     @Test
     fun `Get Rss feeds with unknown error`() = runTest {
-        `when`(repository.getRssFeeds()).thenThrow(Exception())
+        `when`(repository.getRssFeeds(anyList())).thenThrow(Exception())
         val feedsFlow = getRssFeedsUseCase.getFeeds()
         val networkError = feedsFlow.toList()[1]
         MatcherAssert.assertThat(networkError, instanceOf(FetchState.Error::class.java))
