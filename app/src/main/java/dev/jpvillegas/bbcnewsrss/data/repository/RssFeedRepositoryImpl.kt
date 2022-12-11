@@ -2,9 +2,8 @@ package dev.jpvillegas.bbcnewsrss.data.repository
 
 import com.prof.rssparser.Parser
 import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
-import dev.jpvillegas.bbcnewsrss.data.toFeedEntity
-import dev.jpvillegas.bbcnewsrss.data.toRssFeed
-import dev.jpvillegas.bbcnewsrss.data.toRssFeedList
+import dev.jpvillegas.bbcnewsrss.data.mappers.toFeedEntity
+import dev.jpvillegas.bbcnewsrss.data.mappers.toRssFeed
 import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
 import dev.jpvillegas.bbcnewsrss.domain.repository.FeedSourceRepository
 import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
@@ -35,7 +34,7 @@ class RssFeedRepositoryImpl @Inject constructor(
 
         feedDao.insertOrUpdate(feedEntities)
         // in case some feed wasn't fetched, we get all from DB
-        return feedDao.getAll().toRssFeedList()
+        return feedDao.getAll().map { it.toRssFeed() }
     }
 
     private suspend fun fetchFeedUrl(feedUrl: String): String? = withContext(Dispatchers.IO) {

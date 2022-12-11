@@ -2,8 +2,8 @@ package dev.jpvillegas.bbcnewsrss.data.repository
 
 import com.prof.rssparser.*
 import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
-import dev.jpvillegas.bbcnewsrss.data.toFeedEntity
-import dev.jpvillegas.bbcnewsrss.data.toRssFeed
+import dev.jpvillegas.bbcnewsrss.data.mappers.toFeedEntity
+import dev.jpvillegas.bbcnewsrss.data.mappers.toRssFeed
 import dev.jpvillegas.bbcnewsrss.domain.repository.FeedSourceRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
