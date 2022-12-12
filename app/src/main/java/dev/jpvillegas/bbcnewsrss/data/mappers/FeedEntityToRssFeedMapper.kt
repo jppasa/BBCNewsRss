@@ -2,11 +2,11 @@ package dev.jpvillegas.bbcnewsrss.data.mappers
 
 import dev.jpvillegas.bbcnewsrss.data.db.model.FeedEntity
 import dev.jpvillegas.bbcnewsrss.data.db.model.FeedItem
-import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
-import dev.jpvillegas.bbcnewsrss.domain.model.RssFeedItem
+import dev.jpvillegas.bbcnewsrss.domain.model.Feed
+import dev.jpvillegas.bbcnewsrss.domain.model.FeedItem
 
-fun FeedEntity.toRssFeed(): RssFeed {
-    return RssFeed(
+fun FeedEntity.toRssFeed(): Feed {
+    return Feed(
         id = id,
         title = title,
         description = description,
@@ -17,8 +17,8 @@ fun FeedEntity.toRssFeed(): RssFeed {
     )
 }
 
-fun FeedItem.toRssFeedItem(): RssFeedItem {
-    return RssFeedItem(
+fun FeedItem.toRssFeedItem(): dev.jpvillegas.bbcnewsrss.domain.model.FeedItem {
+    return dev.jpvillegas.bbcnewsrss.domain.model.FeedItem(
         title = title,
         description = description,
         link = link,

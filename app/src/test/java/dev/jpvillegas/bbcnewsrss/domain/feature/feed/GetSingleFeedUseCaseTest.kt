@@ -1,9 +1,8 @@
-package dev.jpvillegas.bbcnewsrss.presentation.rss_feed
+package dev.jpvillegas.bbcnewsrss.domain.feature.feed
 
 import dev.jpvillegas.bbcnewsrss.domain.repository.FetchState
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
-import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
-import dev.jpvillegas.bbcnewsrss.domain.use_case.GetSingleRssFeedUseCase
+import dev.jpvillegas.bbcnewsrss.domain.repository.FeedRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.toList
@@ -19,14 +18,14 @@ import org.mockito.Mockito
 import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
-internal class GetSingleRssFeedUseCaseTest {
+internal class GetSingleFeedUseCaseTest {
 
-    private lateinit var repository: RssFeedRepository
+    private lateinit var repository: FeedRepository
     private lateinit var getSingleRssFeedUseCase: GetSingleRssFeedUseCase
 
     @Before
     fun setUp() {
-        repository = Mockito.mock(RssFeedRepository::class.java)
+        repository = Mockito.mock(FeedRepository::class.java)
         getSingleRssFeedUseCase = GetSingleRssFeedUseCase(repository)
     }
 

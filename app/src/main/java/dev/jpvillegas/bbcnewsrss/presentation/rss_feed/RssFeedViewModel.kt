@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.jpvillegas.bbcnewsrss.domain.repository.FetchState
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
-import dev.jpvillegas.bbcnewsrss.domain.use_case.GetSingleRssFeedUseCase
+import dev.jpvillegas.bbcnewsrss.domain.feature.feed.GetSingleRssFeedUseCase
 import dev.jpvillegas.bbcnewsrss.presentation.Screen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn

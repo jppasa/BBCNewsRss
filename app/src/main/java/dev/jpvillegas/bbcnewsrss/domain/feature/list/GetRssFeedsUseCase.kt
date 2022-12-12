@@ -1,23 +1,26 @@
-package dev.jpvillegas.bbcnewsrss.domain.use_case
+package dev.jpvillegas.bbcnewsrss.domain.feature.list
 
-import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
+import dev.jpvillegas.bbcnewsrss.domain.model.Feed
+import dev.jpvillegas.bbcnewsrss.domain.repository.SourceRepository
 import dev.jpvillegas.bbcnewsrss.domain.repository.FetchState
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
-import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
+import dev.jpvillegas.bbcnewsrss.domain.repository.FeedRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 import javax.inject.Inject
 
-class GetSingleRssFeedUseCase @Inject constructor(
-    private val repository: RssFeedRepository
+class GetRssFeedsUseCase @Inject constructor(
+    private val feedRepository: FeedRepository,
+    private val sourceRepository: SourceRepository
 ) {
-    fun getFeedById(id: Int): Flow<FetchState<RssFeed?>> {
+    fun getFeeds(): Flow<FetchState<List<Feed>>> {
         return flow {
             emit(FetchState.Loading())
-            val feed = repository.getRssFeedById(id)
-            emit(FetchState.Success(feed))
+            val urls = sourceRepository.sources()
+            val feeds = feedRepository.getRssFeeds(urls)
+            emit(FetchState.Success(feeds))
         }.catch { throwable ->
             if (throwable is IOException) {
                 emit(FetchState.Error(error = RepositoryError.Network))

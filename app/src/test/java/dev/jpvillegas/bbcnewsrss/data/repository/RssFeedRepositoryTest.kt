@@ -16,13 +16,13 @@ import org.junit.Test
 import org.mockito.Mockito.*
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class RssFeedRepositoryImplTest {
+class RssFeedRepositoryTest {
     private lateinit var mockServer: MockWebServer
     private lateinit var sourceUrls: List<String>
     private lateinit var parser: Parser
     private lateinit var feedDao: FeedDao
 
-    private lateinit var rssFeedRepositoryImpl: RssFeedRepositoryImpl
+    private lateinit var rssFeedRepositoryImpl: RssFeedRepository
 
     @Before
     fun setUp() {
@@ -35,7 +35,7 @@ class RssFeedRepositoryImplTest {
 
         feedDao = mock(FeedDao::class.java)
 
-        rssFeedRepositoryImpl = RssFeedRepositoryImpl(
+        rssFeedRepositoryImpl = RssFeedRepository(
             client = OkHttpClient(),
             parser = parser,
             feedDao = feedDao

@@ -4,21 +4,21 @@ import com.prof.rssparser.Parser
 import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
 import dev.jpvillegas.bbcnewsrss.data.mappers.toFeedEntity
 import dev.jpvillegas.bbcnewsrss.data.mappers.toRssFeed
-import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
-import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
+import dev.jpvillegas.bbcnewsrss.domain.model.Feed
+import dev.jpvillegas.bbcnewsrss.domain.repository.FeedRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import javax.inject.Inject
 
-class RssFeedRepositoryImpl @Inject constructor(
+class RssFeedRepository @Inject constructor(
     private val client: OkHttpClient,
     private val parser: Parser,
     private val feedDao: FeedDao,
-) : RssFeedRepository {
+) : FeedRepository {
 
-    override suspend fun getRssFeeds(urlList: List<String>): List<RssFeed> {
+    override suspend fun getRssFeeds(urlList: List<String>): List<Feed> {
         val feedEntities = urlList
             .mapNotNull { url ->
                 // Future: Check built-in cache in parser -> parser.getChannel(feedUrl)
@@ -48,7 +48,7 @@ class RssFeedRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getRssFeedById(id: Int): RssFeed? {
+    override suspend fun getRssFeedById(id: Int): Feed? {
         return feedDao.getById(id)?.toRssFeed()
     }
 }

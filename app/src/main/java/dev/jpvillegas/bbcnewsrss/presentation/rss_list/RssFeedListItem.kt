@@ -1,7 +1,6 @@
 package dev.jpvillegas.bbcnewsrss.presentation.rss_list
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -23,14 +22,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import dev.jpvillegas.bbcnewsrss.R
-import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
+import dev.jpvillegas.bbcnewsrss.domain.model.Feed
 import dev.jpvillegas.bbcnewsrss.presentation.ui.theme.BBCNewsRssTheme
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun RssFeedListItem(
-    feed: RssFeed,
-    onClick: ((RssFeed) -> Unit)? = null
+    feed: Feed,
+    onClick: ((Feed) -> Unit)? = null
 ) {
     val title = feed.title ?: stringResource(id = R.string.empty_title)
     val description = feed.description
@@ -102,7 +101,7 @@ fun RssFeedListItem(
 fun RssFeedListItemPreview() {
     BBCNewsRssTheme {
         RssFeedListItem(
-            feed = RssFeed(
+            feed = Feed(
                 id = 0,
                 title = "BBC News World Wide",
                 description = "An Rss feed like no other",

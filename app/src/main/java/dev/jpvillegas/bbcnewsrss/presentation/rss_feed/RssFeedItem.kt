@@ -19,12 +19,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.jpvillegas.bbcnewsrss.R
-import dev.jpvillegas.bbcnewsrss.domain.model.RssFeedItem
+import dev.jpvillegas.bbcnewsrss.domain.model.FeedItem
 import dev.jpvillegas.bbcnewsrss.presentation.ui.theme.BBCNewsRssTheme
 
 @Composable
 fun RssFeedItem(
-    feedItem: RssFeedItem,
+    feedItem: FeedItem,
     onClick: () -> Unit
 ) {
     Box(
@@ -83,7 +83,7 @@ fun RssFeedItemPreview() {
     BBCNewsRssTheme {
         Box(modifier = Modifier.background(MaterialTheme.colors.background)) {
             RssFeedItem(
-                feedItem = RssFeedItem(
+                feedItem = FeedItem(
                     title = "A News story breaking right now one two three four five",
                     description = "This is the description of a story breaking",
                     link = null,

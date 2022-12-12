@@ -15,15 +15,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.jpvillegas.bbcnewsrss.R
-import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
-import dev.jpvillegas.bbcnewsrss.domain.model.RssFeedItem
+import dev.jpvillegas.bbcnewsrss.domain.model.Feed
+import dev.jpvillegas.bbcnewsrss.domain.model.FeedItem
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
 import dev.jpvillegas.bbcnewsrss.presentation.ui.theme.BBCNewsRssTheme
 
 @Composable
 fun RssFeedScreen(
     onBackClicked: () -> Unit,
-    onFeedItemClicked: (RssFeedItem) -> Unit,
+    onFeedItemClicked: (FeedItem) -> Unit,
     viewModel: RssFeedViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -38,11 +38,11 @@ fun RssFeedScreen(
 
 @Composable
 fun RssFeedContent(
-    feed: RssFeed?,
+    feed: Feed?,
     isLoading: Boolean,
     error: RepositoryError,
     onBackClicked: () -> Unit,
-    onRssFeedItemClicked: (RssFeedItem) -> Unit
+    onRssFeedItemClicked: (FeedItem) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -149,7 +149,7 @@ fun RssFeedScreenPreview() {
             modifier = Modifier.fillMaxSize()
         ) {
             RssFeedContent(
-                feed = RssFeed(
+                feed = Feed(
                     id = 0,
                     title = "An RSS Feed",
                     description = "A description of the feed",
@@ -157,7 +157,7 @@ fun RssFeedScreenPreview() {
                     thumbnailUrl = null,
                     url = "test.com",
                     items = (1..10).map {
-                        dev.jpvillegas.bbcnewsrss.domain.model.RssFeedItem(
+                        dev.jpvillegas.bbcnewsrss.domain.model.FeedItem(
                             title = "Feed item $it",
                             description = "This is the description for feed item $it",
                             link = null,

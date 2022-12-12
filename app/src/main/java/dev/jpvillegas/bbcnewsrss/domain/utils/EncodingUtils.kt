@@ -1,11 +1,11 @@
 package dev.jpvillegas.bbcnewsrss.domain.utils
 
-import dev.jpvillegas.bbcnewsrss.domain.model.RssFeedItem
+import dev.jpvillegas.bbcnewsrss.domain.model.FeedItem
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 import java.net.URLEncoder
 
-fun RssFeedItem.encodedLink(): String? {
+fun FeedItem.encodedLink(): String? {
     return if (link == null) null
     else try {
         URLEncoder.encode(link, "UTF-8")

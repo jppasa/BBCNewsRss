@@ -18,13 +18,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.jpvillegas.bbcnewsrss.R
-import dev.jpvillegas.bbcnewsrss.domain.model.RssFeed
+import dev.jpvillegas.bbcnewsrss.domain.model.Feed
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
 import dev.jpvillegas.bbcnewsrss.presentation.ui.theme.BBCNewsRssTheme
 
 @Composable
 fun RssFeedListScreen(
-    onFeedClick: ((RssFeed) -> Unit)? = null,
+    onFeedClick: ((Feed) -> Unit)? = null,
     viewModel: RssFeedListViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state.value
@@ -39,9 +39,9 @@ fun RssFeedListScreen(
 
 @Composable
 fun RssFeedListContent(
-    feeds: List<RssFeed>,
+    feeds: List<Feed>,
     isLoading: Boolean,
-    onFeedClick: ((RssFeed) -> Unit)? = null,
+    onFeedClick: ((Feed) -> Unit)? = null,
     error: RepositoryError
 ) {
     Scaffold(
@@ -131,7 +131,7 @@ fun RssFeedListScreenPreview() {
         ) {
             RssFeedListContent(
                 feeds = (1..10).map {
-                    RssFeed(
+                    Feed(
                         id = it,
                         title = "BBC News $it",
                         description = "A feed description",

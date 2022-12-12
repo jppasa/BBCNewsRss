@@ -7,9 +7,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
 import dev.jpvillegas.bbcnewsrss.data.repository.FeedSourceRepository
-import dev.jpvillegas.bbcnewsrss.data.repository.RssFeedRepositoryImpl
+import dev.jpvillegas.bbcnewsrss.data.repository.RssFeedRepository
 import dev.jpvillegas.bbcnewsrss.domain.repository.SourceRepository
-import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
+import dev.jpvillegas.bbcnewsrss.domain.repository.FeedRepository
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
@@ -41,8 +41,8 @@ object AppModule {
         okHttpClient: OkHttpClient,
         rssParser: Parser,
         feedDao: FeedDao,
-    ): RssFeedRepository {
-        return RssFeedRepositoryImpl(
+    ): FeedRepository {
+        return RssFeedRepository(
             client = okHttpClient,
             parser = rssParser,
             feedDao = feedDao

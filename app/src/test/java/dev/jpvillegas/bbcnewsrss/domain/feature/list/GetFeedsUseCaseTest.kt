@@ -1,10 +1,9 @@
-package dev.jpvillegas.bbcnewsrss.presentation.rss_list
+package dev.jpvillegas.bbcnewsrss.domain.feature.list
 
 import dev.jpvillegas.bbcnewsrss.domain.repository.SourceRepository
 import dev.jpvillegas.bbcnewsrss.domain.repository.FetchState
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
-import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
-import dev.jpvillegas.bbcnewsrss.domain.use_case.GetRssFeedsUseCase
+import dev.jpvillegas.bbcnewsrss.domain.repository.FeedRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.toList
@@ -18,14 +17,14 @@ import org.mockito.Mockito.*
 import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
-internal class GetRssFeedsUseCaseTest {
+internal class GetFeedsUseCaseTest {
 
     private lateinit var getRssFeedsUseCase: GetRssFeedsUseCase
-    private lateinit var repository: RssFeedRepository
+    private lateinit var repository: FeedRepository
 
     @Before
     fun setUp() {
-        repository = mock(RssFeedRepository::class.java)
+        repository = mock(FeedRepository::class.java)
 
         val sourceRepository = object : SourceRepository {
             override fun sources(): List<String> {
