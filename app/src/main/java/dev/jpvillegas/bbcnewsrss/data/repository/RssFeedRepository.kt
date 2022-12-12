@@ -3,7 +3,7 @@ package dev.jpvillegas.bbcnewsrss.data.repository
 import com.prof.rssparser.Parser
 import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
 import dev.jpvillegas.bbcnewsrss.data.mappers.toFeedEntity
-import dev.jpvillegas.bbcnewsrss.data.mappers.toRssFeed
+import dev.jpvillegas.bbcnewsrss.data.mappers.toFeed
 import dev.jpvillegas.bbcnewsrss.domain.model.Feed
 import dev.jpvillegas.bbcnewsrss.domain.repository.FeedRepository
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +31,7 @@ class RssFeedRepository @Inject constructor(
 
         feedDao.insertOrUpdate(feedEntities)
         // in case some feed wasn't fetched, we get all from DB
-        return feedDao.getAll().map { it.toRssFeed() }
+        return feedDao.getAll().map { it.toFeed() }
     }
 
     private suspend fun fetchFeedUrl(feedUrl: String): String? = withContext(Dispatchers.IO) {
@@ -49,6 +49,6 @@ class RssFeedRepository @Inject constructor(
     }
 
     override suspend fun getRssFeedById(id: Int): Feed? {
-        return feedDao.getById(id)?.toRssFeed()
+        return feedDao.getById(id)?.toFeed()
     }
 }

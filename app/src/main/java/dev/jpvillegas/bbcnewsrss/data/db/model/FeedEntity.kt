@@ -13,5 +13,5 @@ data class FeedEntity(
     val description: String?,
     val link: String?,
     val thumbnailUrl: String?,
-    val items: List<FeedItem> // could be stored as different entity
+    val items: List<FeedItemEntity> // could be stored as different entity
 )

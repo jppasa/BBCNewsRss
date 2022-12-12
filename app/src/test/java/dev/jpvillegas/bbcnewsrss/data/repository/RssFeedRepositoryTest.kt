@@ -3,7 +3,7 @@ package dev.jpvillegas.bbcnewsrss.data.repository
 import com.prof.rssparser.*
 import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
 import dev.jpvillegas.bbcnewsrss.data.mappers.toFeedEntity
-import dev.jpvillegas.bbcnewsrss.data.mappers.toRssFeed
+import dev.jpvillegas.bbcnewsrss.data.mappers.toFeed
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.OkHttpClient
@@ -97,7 +97,7 @@ class RssFeedRepositoryTest {
         val result = rssFeedRepositoryImpl.getRssFeedById(0)
 
         assertNotNull(result)
-        assertEquals(result, feedEntity.toRssFeed())
+        assertEquals(result, feedEntity.toFeed())
         verify(feedDao, times(1)).getById(anyInt())
     }
 }

@@ -1,6 +1,7 @@
 package dev.jpvillegas.bbcnewsrss.data.db.model
 
-class FeedItem(
+// Named 'entity' now for simplicity but it's not actually a db entity (no table)
+class FeedItemEntity(
     val title: String?,
     val description: String?,
     val link: String?,

@@ -8,8 +8,8 @@ import dagger.hilt.components.SingletonComponent
 import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
 import dev.jpvillegas.bbcnewsrss.data.repository.FeedSourceRepository
 import dev.jpvillegas.bbcnewsrss.data.repository.RssFeedRepository
-import dev.jpvillegas.bbcnewsrss.domain.repository.SourceRepository
 import dev.jpvillegas.bbcnewsrss.domain.repository.FeedRepository
+import dev.jpvillegas.bbcnewsrss.domain.repository.SourceRepository
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
 
