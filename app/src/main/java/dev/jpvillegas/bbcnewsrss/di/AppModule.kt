@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
-import dev.jpvillegas.bbcnewsrss.data.repository.SourceRepositoryImpl
+import dev.jpvillegas.bbcnewsrss.data.repository.FeedSourceRepository
 import dev.jpvillegas.bbcnewsrss.data.repository.RssFeedRepositoryImpl
 import dev.jpvillegas.bbcnewsrss.domain.repository.SourceRepository
 import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
@@ -32,7 +32,7 @@ object AppModule {
     @Provides
     @Singleton
     fun providesFeedSourceRepository() : SourceRepository {
-        return SourceRepositoryImpl()
+        return FeedSourceRepository()
     }
 
     @Provides
