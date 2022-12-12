@@ -1,6 +1,6 @@
 package dev.jpvillegas.bbcnewsrss.presentation.rss_list
 
-import dev.jpvillegas.bbcnewsrss.domain.repository.FeedSourceRepository
+import dev.jpvillegas.bbcnewsrss.domain.repository.SourceRepository
 import dev.jpvillegas.bbcnewsrss.domain.repository.FetchState
 import dev.jpvillegas.bbcnewsrss.domain.repository.RepositoryError
 import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
@@ -27,13 +27,13 @@ internal class GetRssFeedsUseCaseTest {
     fun setUp() {
         repository = mock(RssFeedRepository::class.java)
 
-        val feedSourceRepository = object : FeedSourceRepository {
-            override fun sourceUrls(): List<String> {
+        val sourceRepository = object : SourceRepository {
+            override fun sources(): List<String> {
                 return listOf("")
             }
         }
 
-        getRssFeedsUseCase = GetRssFeedsUseCase(repository, feedSourceRepository)
+        getRssFeedsUseCase = GetRssFeedsUseCase(repository, sourceRepository)
     }
 
     @Test

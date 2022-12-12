@@ -1,16 +1,14 @@
 package dev.jpvillegas.bbcnewsrss.di
 
-import androidx.room.Room
 import com.prof.rssparser.Parser
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import dev.jpvillegas.bbcnewsrss.data.db.AppDb
 import dev.jpvillegas.bbcnewsrss.data.db.FeedDao
-import dev.jpvillegas.bbcnewsrss.data.repository.FeedSourceRepositoryImpl
+import dev.jpvillegas.bbcnewsrss.data.repository.SourceRepositoryImpl
 import dev.jpvillegas.bbcnewsrss.data.repository.RssFeedRepositoryImpl
-import dev.jpvillegas.bbcnewsrss.domain.repository.FeedSourceRepository
+import dev.jpvillegas.bbcnewsrss.domain.repository.SourceRepository
 import dev.jpvillegas.bbcnewsrss.domain.repository.RssFeedRepository
 import okhttp3.OkHttpClient
 import javax.inject.Singleton
@@ -33,8 +31,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesFeedSourceRepository() : FeedSourceRepository {
-        return FeedSourceRepositoryImpl()
+    fun providesFeedSourceRepository() : SourceRepository {
+        return SourceRepositoryImpl()
     }
 
     @Provides
